@@ -19,6 +19,18 @@ app.use(express.static(publicPath)); // serves up the public folder
 io.on('connection', (socket) => {
   console.log('New user connected');
   
+  socket.emit('newMessage', {
+    from: 'Admin',
+    text: 'Welcome to the chat app',
+    createdAt: new Date().getDate()
+  });
+  
+  socket.broadcast.emit('newMessage', {
+    from: 'Admin',
+    text: 'New user joined',
+    createdAt: new Date().getDate()
+  });
+  
   socket.on('disconnect', () => {
     console.log('User was disconnected');
   });
