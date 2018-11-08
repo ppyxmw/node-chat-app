@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
     users.removeUser(socket.id); //removes user from any other rooms they are in
     users.addUser(socket.id, params.name, params.room); //adds user to list
     
-    io.to(params.room).emit('updateUserList', users.getUserlist(params.room)); 
+    io.to(params.room).emit('updateUserList', users.getUserlist(params.room), params.room); 
     //emits names in room to the new room joiner
     
     socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
@@ -61,7 +61,7 @@ io.on('connection', (socket) => {
     // remember this returns the user removed
     // so if a user was removed then we update list and inform room
     if (user) {
-      io.to(user.room).emit('updateUserList', users.getUserlist(user.room));
+      io.to(user.room).emit('updateUserList', users.getUserlist(user.room), user.room);
       io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left.`));
     }
   });

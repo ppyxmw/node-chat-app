@@ -23,11 +23,7 @@ socket.on('connect', function () {
     if(err){
       alert(err);
       window.location.href = '/';
-    } else {
-      //no error
-      var room = `<h3>${params.room} room</h3>`;
-      jQuery('#room').append(room);
-    }
+    } 
   });
 });
 
@@ -35,8 +31,10 @@ socket.on('disconnect', function () {
   console.log('Disconnected from server');
 });
 
-socket.on('updateUserList', function(users) {
+socket.on('updateUserList', function(users, room) {
   var ol = jQuery('<ol></ol>');
+
+  jQuery('#room').html(`People in ${room} Room`);
   
   users.forEach(function (user) {
     ol.append(jQuery('<li></li>').text(user));
