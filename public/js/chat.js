@@ -34,7 +34,7 @@ socket.on('disconnect', function () {
 socket.on('updateUserList', function(users, room) {
   var ol = jQuery('<ol></ol>');
 
-  jQuery('#room').html(`People in ${room} Room`);
+  jQuery('#room').html(`People in the ${room} room`);
   
   users.forEach(function (user) {
     ol.append(jQuery('<li></li>').text(user));
