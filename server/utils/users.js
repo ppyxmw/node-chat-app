@@ -28,6 +28,11 @@ class Users {
     // this ES6 loops though and creates a new array
     return namesArray;
   }
+  getRoomlist () {
+    var roomsArray = (this.array).map((user) => user.room);
+    roomsArray = Array.from(new Set(roomsArray));
+    return roomsArray;
+  }
 }
 
 module.exports = {Users};

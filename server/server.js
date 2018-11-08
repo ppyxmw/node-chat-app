@@ -19,8 +19,15 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
   console.log('New user connected');
   
+  socket.emit('roomList', users.getRoomlist());
+
   socket.on('join', (params, callback) => {
-    if (!isRealString(params.name) || !isRealString(params.room)){
+    
+    if (isRealString(params.selectpicker)) {
+      params.room = params.selectpicker;
+    }
+    
+    if (!isRealString(params.name) || (!isRealString(params.room))){
       return callback('Name and room name are required.');
       // return ensures none of the code below runs if data is not valid
     }
