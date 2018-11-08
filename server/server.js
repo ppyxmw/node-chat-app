@@ -24,7 +24,12 @@ io.on('connection', (socket) => {
       return callback('Name and room name are required.');
       // return ensures none of the code below runs if data is not valid
     }
+    
     params.room = (params.room).toLowerCase();
+    
+    if (users.getUserlist(params.room).indexOf(params.name) > -1){
+      return callback('Your username is taken. Please try another.');
+    }
     
     socket.join(params.room);
     users.removeUser(socket.id); //removes user from any other rooms they are in
